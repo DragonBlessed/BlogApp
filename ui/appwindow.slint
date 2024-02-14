@@ -1,14 +1,18 @@
 import { Button, VerticalBox, LineEdit, TextEdit } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
+    
+    in property <string> postText: "";
+    callback posted(string);
+
     title: "Blog App";
     width: 1280px;
     height: 720px;
     background: @linear-gradient(300deg, #000080 0%, #87CEEB 33%, #565B59 66%, #000000 100%);
 
     GridLayout {
-        padding: 50px;
-        spacing: 25px;
+        padding: 20px;
+        spacing: 20px;
         Row {
             Text {
                 text: "Personal Blog";
@@ -18,7 +22,21 @@ export component AppWindow inherits Window {
             }
         }
         Row {
-            TextEdit {
+            VerticalBox {
+                height: 300px;
+                Rectangle {
+                    background: @linear-gradient(60deg, #35343230 0%, #727e722f 33%, #727e722f 66%, #35343230 100%);
+                    finishedPost := TextEdit {
+                        text: postText;
+                        horizontal-alignment: left;
+                        font-size: 24px;
+                        read-only: true;
+                    }
+                }
+            }
+        }
+        Row {
+            post := TextEdit {
                 text: "Enter your blog post here";
                 horizontal-alignment: left;
                 font-size: 18px;
@@ -30,7 +48,7 @@ export component AppWindow inherits Window {
                 text: "Post";
                 primary: false;
                 height: 35px;
-                clicked => { self.text = "Posted!"; }
+                clicked => { posted(post.text) }
             }
         }
     }
