@@ -26,6 +26,7 @@ export component AppWindow inherits Window {
                 height: 300px;
                 Rectangle {
                     background: @linear-gradient(60deg, #35343230 0%, #727e722f 33%, #727e722f 66%, #35343230 100%);
+                    padding: 20px;
                     finishedPost := TextEdit {
                         text: postText;
                         horizontal-alignment: left;
@@ -48,7 +49,7 @@ export component AppWindow inherits Window {
                 text: "Post";
                 primary: false;
                 height: 35px;
-                clicked => { posted(post.text) }
+                clicked => { posted(post.text); post.text = ""; }
             }
         }
     }
